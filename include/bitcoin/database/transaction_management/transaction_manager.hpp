@@ -42,9 +42,10 @@ public:
     const transaction_context& begin_transaction();
 
     /// End a transaction. Caller synchronously waits for the
-    /// transaction context to be removed from the active list. If
-    /// this is the last transaction in active and transaction_manager
-    /// is in quiescent phase, then call snapshot_callback.
+    /// transaction context to be removed from the active list.
+    /// If this is the last transaction in active list and
+    /// transaction_manager is in quiescent phase, then call
+    /// snapshot_callback.
     bool end_transaction(const transaction_context&);
 
     /// Number of active transactions at the moment.

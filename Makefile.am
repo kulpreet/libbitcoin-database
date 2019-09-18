@@ -171,6 +171,15 @@ include_bitcoin_database_result_HEADERS = \
     include/bitcoin/database/result/transaction_iterator.hpp \
     include/bitcoin/database/result/transaction_result.hpp
 
+include_bitcoin_database_snapshotdir = ${includedir}/bitcoin/database/snapshot
+include_bitcoin_database_snapshot_HEADERS = \
+    include/bitcoin/database/snapshot/snapshot_manager.hpp
+
+include_bitcoin_database_transaction_managementdir = ${includedir}/bitcoin/database/transaction_management
+include_bitcoin_database_transaction_management_HEADERS = \
+    include/bitcoin/database/transaction_management/transaction_context.hpp \
+    include/bitcoin/database/transaction_management/transaction_manager.hpp
+
 
 # Custom make targets.
 #==============================================================================

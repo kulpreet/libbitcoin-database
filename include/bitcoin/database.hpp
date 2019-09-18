@@ -45,5 +45,8 @@
 #include <bitcoin/database/result/payment_result.hpp>
 #include <bitcoin/database/result/transaction_iterator.hpp>
 #include <bitcoin/database/result/transaction_result.hpp>
+#include <bitcoin/database/snapshot/snapshot_manager.hpp>
+#include <bitcoin/database/transaction_management/transaction_context.hpp>
+#include <bitcoin/database/transaction_management/transaction_manager.hpp>
 
 #endif
