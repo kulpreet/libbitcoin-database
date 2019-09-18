@@ -123,7 +123,10 @@
     <ClInclude Include="..\..\..\..\include\bitcoin\database\result\transaction_iterator.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\result\transaction_result.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\settings.hpp" />
+    <ClInclude Include="..\..\..\..\include\bitcoin\database\snapshot\snapshot_manager.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\store.hpp" />
+    <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\transaction_context.hpp" />
+    <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\transaction_manager.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\unspent_outputs.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\unspent_transaction.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\verify.hpp" />

@@ -30,8 +30,8 @@ public:
 
     ~transaction_context() = default;
 private:
-    const size_t txn_id;
     const unint64_t begin_timestamp;
+    const size_t txn_id;
 };
 
 } // namespace database

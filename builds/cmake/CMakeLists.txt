@@ -124,22 +124,22 @@ endif()
 # Define project common library directories
 #------------------------------------------------------------------------------
 if (BUILD_SHARED_LIBS)
-    link_directories( 
+    link_directories(
         ${bitcoin_system_LIBRARY_DIRS} )
 else()
-    link_directories( 
+    link_directories(
         ${bitcoin_system_STATIC_LIBRARY_DIRS} )
 endif()
 
 # Define project common libraries/linker flags.
 #------------------------------------------------------------------------------
 if (BUILD_SHARED_LIBS)
-    link_libraries( 
+    link_libraries(
         "-fstack-protector"
         "-fstack-protector-all"
         ${bitcoin_system_LIBRARIES} )
 else()
-    link_libraries( 
+    link_libraries(
         "-fstack-protector"
         "-fstack-protector-all"
         ${bitcoin_system_STATIC_LIBRARIES} )
@@ -149,6 +149,19 @@ endif()
 #------------------------------------------------------------------------------
 add_library( ${CANONICAL_LIB_NAME}
     "../../src/data_base.cpp"
+    "../../src/libbitcoin-database.la"
+    "../../src/libbitcoin_database_la-data_base.lo"
+    "../../src/libbitcoin_database_la-data_base.o"
+    "../../src/libbitcoin_database_la-settings.lo"
+    "../../src/libbitcoin_database_la-settings.o"
+    "../../src/libbitcoin_database_la-store.lo"
+    "../../src/libbitcoin_database_la-store.o"
+    "../../src/libbitcoin_database_la-unspent_outputs.lo"
+    "../../src/libbitcoin_database_la-unspent_outputs.o"
+    "../../src/libbitcoin_database_la-unspent_transaction.lo"
+    "../../src/libbitcoin_database_la-unspent_transaction.o"
+    "../../src/libbitcoin_database_la-verify.lo"
+    "../../src/libbitcoin_database_la-verify.o"
     "../../src/settings.cpp"
     "../../src/store.cpp"
     "../../src/unspent_outputs.cpp"
@@ -156,15 +169,39 @@ add_library( ${CANONICAL_LIB_NAME}
     "../../src/verify.cpp"
     "../../src/databases/block_database.cpp"
     "../../src/databases/filter_database.cpp"
+    "../../src/databases/libbitcoin_database_la-address_database.lo"
+    "../../src/databases/libbitcoin_database_la-address_database.o"
+    "../../src/databases/libbitcoin_database_la-block_database.lo"
+    "../../src/databases/libbitcoin_database_la-block_database.o"
+    "../../src/databases/libbitcoin_database_la-transaction_database.lo"
+    "../../src/databases/libbitcoin_database_la-transaction_database.o"
     "../../src/databases/payment_database.cpp"
     "../../src/databases/transaction_database.cpp"
     "../../src/memory/accessor.cpp"
     "../../src/memory/file_storage.cpp"
+    "../../src/memory/libbitcoin_database_la-accessor.lo"
+    "../../src/memory/libbitcoin_database_la-accessor.o"
+    "../../src/memory/libbitcoin_database_la-file_storage.lo"
+    "../../src/memory/libbitcoin_database_la-file_storage.o"
+    "../../src/mman-win32/libbitcoin_database_la-mman.lo"
+    "../../src/mman-win32/libbitcoin_database_la-mman.o"
     "../../src/mman-win32/mman.c"
     "../../src/mman-win32/mman.h"
     "../../src/result/block_result.cpp"
     "../../src/result/filter_result.cpp"
     "../../src/result/inpoint_iterator.cpp"
+    "../../src/result/libbitcoin_database_la-address_iterator.lo"
+    "../../src/result/libbitcoin_database_la-address_iterator.o"
+    "../../src/result/libbitcoin_database_la-address_result.lo"
+    "../../src/result/libbitcoin_database_la-address_result.o"
+    "../../src/result/libbitcoin_database_la-block_result.lo"
+    "../../src/result/libbitcoin_database_la-block_result.o"
+    "../../src/result/libbitcoin_database_la-inpoint_iterator.lo"
+    "../../src/result/libbitcoin_database_la-inpoint_iterator.o"
+    "../../src/result/libbitcoin_database_la-transaction_iterator.lo"
+    "../../src/result/libbitcoin_database_la-transaction_iterator.o"
+    "../../src/result/libbitcoin_database_la-transaction_result.lo"
+    "../../src/result/libbitcoin_database_la-transaction_result.o"
     "../../src/result/payment_iterator.cpp"
     "../../src/result/payment_result.cpp"
     "../../src/result/transaction_iterator.cpp"
@@ -201,6 +238,14 @@ if (with-tests)
     add_executable( libbitcoin-database-test
         "../../test/block_state.cpp"
         "../../test/data_base.cpp"
+        "../../test/libbitcoin-database-test"
+        "../../test/libbitcoin_database_test-block_state.o"
+        "../../test/libbitcoin_database_test-data_base.o"
+        "../../test/libbitcoin_database_test-main.o"
+        "../../test/libbitcoin_database_test-settings.o"
+        "../../test/libbitcoin_database_test-store.o"
+        "../../test/libbitcoin_database_test-unspent_outputs.o"
+        "../../test/libbitcoin_database_test-unspent_transaction.o"
         "../../test/main.cpp"
         "../../test/settings.cpp"
         "../../test/store.cpp"
@@ -208,13 +253,26 @@ if (with-tests)
         "../../test/unspent_transaction.cpp"
         "../../test/databases/block_database.cpp"
         "../../test/databases/filter_database.cpp"
+        "../../test/databases/libbitcoin_database_test-address_database.o"
+        "../../test/databases/libbitcoin_database_test-block_database.o"
+        "../../test/databases/libbitcoin_database_test-transaction_database.o"
         "../../test/databases/payment_database.cpp"
         "../../test/databases/transaction_database.cpp"
         "../../test/memory/accessor.cpp"
         "../../test/memory/file_storage.cpp"
+        "../../test/memory/libbitcoin_database_test-accessor.o"
+        "../../test/memory/libbitcoin_database_test-file_storage.o"
         "../../test/primitives/hash_table.cpp"
         "../../test/primitives/hash_table_header.cpp"
         "../../test/primitives/hash_table_multimap.cpp"
+        "../../test/primitives/libbitcoin_database_test-hash_table.o"
+        "../../test/primitives/libbitcoin_database_test-hash_table_header.o"
+        "../../test/primitives/libbitcoin_database_test-hash_table_multimap.o"
+        "../../test/primitives/libbitcoin_database_test-list.o"
+        "../../test/primitives/libbitcoin_database_test-list_element.o"
+        "../../test/primitives/libbitcoin_database_test-list_iterator.o"
+        "../../test/primitives/libbitcoin_database_test-record_manager.o"
+        "../../test/primitives/libbitcoin_database_test-slab_manager.o"
         "../../test/primitives/list.cpp"
         "../../test/primitives/list_element.cpp"
         "../../test/primitives/list_iterator.cpp"
@@ -222,10 +280,17 @@ if (with-tests)
         "../../test/primitives/slab_manager.cpp"
         "../../test/result/block_result.cpp"
         "../../test/result/filter_result.cpp"
+        "../../test/result/libbitcoin_database_test-address_iterator.o"
+        "../../test/result/libbitcoin_database_test-address_result.o"
+        "../../test/result/libbitcoin_database_test-block_result.o"
+        "../../test/result/libbitcoin_database_test-transaction_iterator.o"
+        "../../test/result/libbitcoin_database_test-transaction_result.o"
         "../../test/result/payment_iterator.cpp"
         "../../test/result/payment_result.cpp"
         "../../test/result/transaction_iterator.cpp"
         "../../test/result/transaction_result.cpp"
+        "../../test/utility/libbitcoin_database_test-storage.o"
+        "../../test/utility/libbitcoin_database_test-utility.o"
         "../../test/utility/storage.cpp"
         "../../test/utility/storage.hpp"
         "../../test/utility/utility.cpp"
@@ -255,6 +320,8 @@ endif()
 #------------------------------------------------------------------------------
 if (with-tools)
     add_executable( initchain
+        "../../tools/initchain/initchain"
+        "../../tools/initchain/initchain-initchain.o"
         "../../tools/initchain/initchain.cpp" )
 
 #     initchain project specific include directories.
