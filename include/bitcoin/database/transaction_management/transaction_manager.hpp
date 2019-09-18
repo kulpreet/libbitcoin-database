@@ -16,8 +16,8 @@
  * You should have received a copy of the GNU Affero General Public License
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
-#ifndef LIBBITCOIN_DATABASE_DATA_BASE_HPP
-#define LIBBITCOIN_DATABASE_DATA_BASE_HPP
+#ifndef LIBBITCOIN_DATABASE_TRANSACTION_MANAGER_HPP
+#define LIBBITCOIN_DATABASE_TRANSACTION_MANAGER_HPP
 
 #include <bitcoin/system.hpp>
 #include <bitcoin/database/define.hpp>
@@ -35,38 +35,36 @@ class BCD_API transaction_manager
 public:
 
     /// Construct the transaction manager
-    transaction_manager();
+    transaction_manager(std::function<void()> callback);
 
     /// Begin a transaction. Caller synchronously waits for a
     /// transaction_context.
-    const transaction_context& begin_transaction();
+    void begin_transaction();
 
     /// End a transaction. Caller synchronously waits for the
-    /// transaction context to be removed from the active list.
-    /// If this is the last transaction in active list and
-    /// transaction_manager is in quiescent phase, then call
+    /// active_list to be decremented. If active_count reduces to
+    /// zero and transaction_manager is in quiescent phase, then call
     /// snapshot_callback.
-    bool end_transaction(const transaction_context&);
-
-    /// Number of active transactions at the moment.
-    int count_active() const;
+    void end_transaction();
 
     // Start quiescent phase. No new transactions are allowed to
     // start.
-    bool enter_quiescent();
+    void enter_quiescent();
 
     // Leave quiescent phase. Transactions waiting will now get the
     // transaction_contexts and can start processing.
-    bool leave_quiescent();
+    void leave_quiescent();
 
 private:
 
-    /// Active transactions in the system.
-    std::vector<const transaction_context&> active;
-
     /// Snapshot manager callback to invoke when last transaction
     /// leaves
-    system::handle0 snapshot_callback;
+    std::function<void()> snapshot_callback_;
+
+    std::atomic<size_t> active_count_;
+
+    // Set and read by a single thread. Doesn't need to be atomic.
+    bool quiescent;
 };
 
 } // namespace database
