@@ -8,37 +8,37 @@
 <Project DefaultTargets="Build" ToolsVersion="15.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
     <Filter Include="include">
-      <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000005}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="include\bitcoin">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000006}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database">
+    <Filter Include="include\bitcoin">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000007}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database\databases">
+    <Filter Include="include\bitcoin\database">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000008}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database\impl">
+    <Filter Include="include\bitcoin\database\databases">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000009}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database\memory">
+    <Filter Include="include\bitcoin\database\impl">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-00000000000A}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database\primitives">
+    <Filter Include="include\bitcoin\database\memory">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-00000000000B}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database\result">
+    <Filter Include="include\bitcoin\database\primitives">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-00000000000C}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database\snapshot">
+    <Filter Include="include\bitcoin\database\result">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-00000000000D}</UniqueIdentifier>
     </Filter>
-    <Filter Include="include\bitcoin\database\transaction_management">
+    <Filter Include="include\bitcoin\database\snapshot">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-00000000000E}</UniqueIdentifier>
     </Filter>
-    <Filter Include="resource">
+    <Filter Include="include\bitcoin\database\transaction_management">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-00000000000F}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="resource">
+      <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000001}</UniqueIdentifier>
     </Filter>
     <Filter Include="src">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000000}</UniqueIdentifier>
@@ -54,6 +54,9 @@
     </Filter>
     <Filter Include="src\result">
       <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000004}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\transaction_management">
+      <UniqueIdentifier>{62D7FBEE-4D52-424A-0000-000000000005}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -107,6 +110,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\store.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\src\transaction_management\transaction_manager.cpp">
+      <Filter>src\transaction_management</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\src\unspent_outputs.cpp">
       <Filter>src</Filter>
@@ -208,9 +214,6 @@
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\bitcoin\database\store.hpp">
       <Filter>include\bitcoin\database</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\transaction_context.hpp">
-      <Filter>include\bitcoin\database\transaction_management</Filter>
     </ClInclude>
     <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\transaction_manager.hpp">
       <Filter>include\bitcoin\database\transaction_management</Filter>

@@ -96,7 +96,7 @@ private:
     // the transaction index with the exception that the tx index stores tx
     // sets by block in a contiguous array, eliminating a need for linked list.
     typedef hash_table_multimap<index_type, link_type, key_type> record_multimap;
-    
+
     /// Hash table used for start index lookup for linked list by hash
     /// of the output script.
     file_storage hash_table_file_;

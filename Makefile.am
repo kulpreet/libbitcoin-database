@@ -55,7 +55,8 @@ src_libbitcoin_database_la_SOURCES = \
     src/result/payment_iterator.cpp \
     src/result/payment_result.cpp \
     src/result/transaction_iterator.cpp \
-    src/result/transaction_result.cpp
+    src/result/transaction_result.cpp \
+    src/transaction_management/transaction_manager.cpp
 
 # local: test/libbitcoin-database-test
 #------------------------------------------------------------------------------
@@ -183,7 +184,6 @@ include_bitcoin_database_snapshot_HEADERS = \
 
 include_bitcoin_database_transaction_managementdir = ${includedir}/bitcoin/database/transaction_management
 include_bitcoin_database_transaction_management_HEADERS = \
-    include/bitcoin/database/transaction_management/transaction_context.hpp \
     include/bitcoin/database/transaction_management/transaction_manager.hpp
 
 
