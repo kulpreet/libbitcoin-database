@@ -184,6 +184,7 @@ include_bitcoin_database_snapshot_HEADERS = \
 
 include_bitcoin_database_transaction_managementdir = ${includedir}/bitcoin/database/transaction_management
 include_bitcoin_database_transaction_management_HEADERS = \
+    include/bitcoin/database/transaction_management/transaction_context.hpp \
     include/bitcoin/database/transaction_management/transaction_manager.hpp
 
 

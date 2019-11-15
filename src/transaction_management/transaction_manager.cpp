@@ -17,41 +17,43 @@
  * along with this program.  If not, see <http://www.gnu.org/licenses/>.
  */
 
+#include <bitcoin/database/transaction_management/transaction_context.hpp>
 #include <bitcoin/database/transaction_management/transaction_manager.hpp>
-
 
 namespace libbitcoin {
 namespace database {
 
-transaction_manager::transaction_manager(std::function<void()> callback)
-  : snapshot_callback_(callback),
-    quiescent(false)
+transaction_manager::transaction_manager()
+ : time_{ timestamp_t(0) }
 {
-    active_count_.store(0);
 }
 
-void transaction_manager::begin_transaction()
+transaction_context transaction_manager::begin_transaction()
 {
-    active_count_.fetch_add(1, std::memory_order_relaxed);
+    // TODO add spin latch, RAII on a block
+    auto start_time = time_++;
+    // TODO end spin latch here
+
+    transaction_context context(start_time, state::active);
+
+    // TODO add spin latch on current transactions, RAII on a block
+    current_transactions_.emplace(start_time);
+    // TODO end spin latch
+
+    return context;
 }
 
-void transaction_manager::end_transaction()
+void transaction_manager::commit_transaction(transaction_context& context) const
 {
-    if (active_count_.fetch_sub(1, std::memory_order_relaxed) == 1) {
-        if (quiescent)
-            snapshot_callback_();
-    }
+    context.set_state(state::active);
 }
 
-void transaction_manager::enter_quiescent()
+void transaction_manager::remove_transaction(timestamp_t start_time)
 {
-    quiescent = true;
+    // TODO add spin latch on current transactions, RAII on a block
+    current_transactions_.erase(start_time);
+    // TODO end spin latch
 }
 
-void transaction_manager::leave_quiescent()
-{
-    quiescent = false;
-}
-
-}
-}
+} // namespace database
+} // namespace libbitcoin

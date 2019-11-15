@@ -19,52 +19,45 @@
 #ifndef LIBBITCOIN_DATABASE_TRANSACTION_MANAGER_HPP
 #define LIBBITCOIN_DATABASE_TRANSACTION_MANAGER_HPP
 
+#include <unordered_set>
 #include <bitcoin/system.hpp>
 #include <bitcoin/database/define.hpp>
+
+#include <bitcoin/database/transaction_management/transaction_context.hpp>
+
+typedef uint64_t timestamp_t;
 
 namespace libbitcoin {
 namespace database {
 
-/// transaction_manager provides a means to start and commit
+/// transaction_manager is responsible for starting and commiting
 /// transactions.
-/// If the database is in the quiescent mode to take a snapshot, no
-/// new tranasactions are allowed to start. All begin_transactions
-/// requests wait on a spin lock.
-class BCD_API transaction_manager
+/// begin_transaction waits on a spin lock.
+/// TODO: As per Silo generate transaction ids using thread id,
+/// or as per terrier, use thread local data, or batch transaction
+/// ids. But this can wait till we identify transaction id generation
+/// as a bottleneck
+class transaction_manager
 {
 public:
 
-    /// Construct the transaction manager
-    transaction_manager(std::function<void()> callback);
+    /// Constructor
+    transaction_manager();
 
     /// Begin a transaction. Caller synchronously waits for a
     /// transaction_context.
-    void begin_transaction();
+    transaction_context begin_transaction();
 
-    /// End a transaction. Caller synchronously waits for the
-    /// active_list to be decremented. If active_count reduces to
-    /// zero and transaction_manager is in quiescent phase, then call
-    /// snapshot_callback.
-    void end_transaction();
+    /// Commit transaction. Transaction context is released.
+    /// Global state transaction table entry for this context
+    /// is removed.
+    void commit_transaction(transaction_context& context) const;
 
-    // Start quiescent phase. No new transactions are allowed to
-    // start.
-    void enter_quiescent();
-
-    // Leave quiescent phase. Transactions waiting will now get the
-    // transaction_contexts and can start processing.
-    void leave_quiescent();
+    void remove_transaction(timestamp_t start_time);
 
 private:
-
-    /// Snapshot manager callback to invoke when last transaction
-    /// leaves
-    std::function<void()> snapshot_callback_;
-
-    std::atomic<size_t> active_count_;
-
-    // Set and read by a single thread. Doesn't need to be atomic.
-    bool quiescent;
+    std::atomic<timestamp_t> time_;
+    std::unordered_set<timestamp_t> current_transactions_;
 };
 
 } // namespace database
