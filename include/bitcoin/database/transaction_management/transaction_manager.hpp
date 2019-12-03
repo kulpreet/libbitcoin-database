@@ -30,6 +30,7 @@ typedef uint64_t timestamp_t;
 namespace libbitcoin {
 namespace database {
 
+typedef std::unordered_set<timestamp_t> transaction_set;
 /// transaction_manager is responsible for starting and commiting
 /// transactions.
 /// begin_transaction waits on a spin lock.
@@ -53,11 +54,13 @@ public:
     /// is removed.
     void commit_transaction(transaction_context& context) const;
 
-    void remove_transaction(timestamp_t start_time);
+    void remove_transaction(const transaction_context& context);
+
+    bool is_active(const transaction_context& context) const;
 
 private:
     std::atomic<timestamp_t> time_;
-    std::unordered_set<timestamp_t> current_transactions_;
+    transaction_set current_transactions_;
 };
 
 } // namespace database

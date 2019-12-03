@@ -47,12 +47,12 @@ public:
     {
     }
 
-    timestamp_t get_timestamp()
+    timestamp_t get_timestamp() const
     {
         return timestamp_;
     }
 
-    state get_state()
+    state get_state() const
     {
         return state_;
     }

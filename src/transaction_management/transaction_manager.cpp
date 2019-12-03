@@ -45,13 +45,30 @@ transaction_context transaction_manager::begin_transaction()
 
 void transaction_manager::commit_transaction(transaction_context& context) const
 {
-    context.set_state(state::active);
+    context.set_state(state::committed);
 }
 
-void transaction_manager::remove_transaction(timestamp_t start_time)
+bool transaction_manager::is_active(const transaction_context& context) const
 {
+    // Can check this without a lock
+    if (context.get_state() != state::active)
+    {
+        return false;
+    }
+
     // TODO add spin latch on current transactions, RAII on a block
-    current_transactions_.erase(start_time);
+    transaction_set::const_iterator existing =
+        current_transactions_.find(context.get_timestamp());
+    return existing != current_transactions_.end();
+    // TODO end spin latch
+}
+
+void transaction_manager::remove_transaction(const transaction_context& context)
+{
+    BITCOIN_ASSERT(context.get_state() == state::committed);
+
+    // TODO add spin latch on current transactions, RAII on a block
+    current_transactions_.erase(context.get_timestamp());
     // TODO end spin latch
 }
 
