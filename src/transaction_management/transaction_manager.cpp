@@ -26,19 +26,17 @@ namespace database {
 transaction_manager::transaction_manager()
  : time_{ timestamp_t(0) }
 {
+    latch_ = std::make_shared<spinlatch>();
 }
 
 transaction_context transaction_manager::begin_transaction()
 {
-    // TODO add spin latch, RAII on a block
+    scopedspinlatch latch(latch_);
     auto start_time = time_++;
-    // TODO end spin latch here
 
     transaction_context context(start_time, state::active);
 
-    // TODO add spin latch on current transactions, RAII on a block
     current_transactions_.emplace(start_time);
-    // TODO end spin latch
 
     return context;
 }
@@ -50,26 +48,24 @@ void transaction_manager::commit_transaction(transaction_context& context) const
 
 bool transaction_manager::is_active(const transaction_context& context) const
 {
-    // Can check this without a lock
+    // Can check this without a latch
     if (context.get_state() != state::active)
     {
         return false;
     }
 
-    // TODO add spin latch on current transactions, RAII on a block
+    scopedspinlatch latch(latch_);
     transaction_set::const_iterator existing =
         current_transactions_.find(context.get_timestamp());
     return existing != current_transactions_.end();
-    // TODO end spin latch
 }
 
 void transaction_manager::remove_transaction(const transaction_context& context)
 {
     BITCOIN_ASSERT(context.get_state() == state::committed);
 
-    // TODO add spin latch on current transactions, RAII on a block
+    scopedspinlatch latch(latch_);
     current_transactions_.erase(context.get_timestamp());
-    // TODO end spin latch
 }
 
 } // namespace database

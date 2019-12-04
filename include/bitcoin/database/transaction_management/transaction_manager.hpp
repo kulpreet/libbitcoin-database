@@ -20,8 +20,9 @@
 #define LIBBITCOIN_DATABASE_TRANSACTION_MANAGER_HPP
 
 #include <unordered_set>
-#include <bitcoin/system.hpp>
 #include <bitcoin/database/define.hpp>
+#include <bitcoin/database/transaction_management/spinlatch.hpp>
+#include <bitcoin/system.hpp>
 
 #include <bitcoin/database/transaction_management/transaction_context.hpp>
 
@@ -31,9 +32,13 @@ namespace libbitcoin {
 namespace database {
 
 typedef std::unordered_set<timestamp_t> transaction_set;
-/// transaction_manager is responsible for starting and commiting
-/// transactions.
-/// begin_transaction waits on a spin lock.
+
+/// transaction_manager implements a global transaction table and is
+/// responsible for starting and commiting transactions.
+///
+/// The implementation uses a spinlock to avoid heavier weight
+/// mutexes.
+///
 /// TODO: As per Silo generate transaction ids using thread id,
 /// or as per terrier, use thread local data, or batch transaction
 /// ids. But this can wait till we identify transaction id generation
@@ -41,7 +46,6 @@ typedef std::unordered_set<timestamp_t> transaction_set;
 class transaction_manager
 {
 public:
-
     /// Constructor
     transaction_manager();
 
@@ -59,12 +63,19 @@ public:
     bool is_active(const transaction_context& context) const;
 
 private:
+    std::shared_ptr<spinlatch> latch_;
+
+    /// TODO: time_ needs to wrap around. We need to handle that when we get
+    // to concurrency control protocols that depend on these timestamps.
+    //
+    // TODO: For large number of cores, say > 16, we will need to
+    // optimise issuing timestamps. Maybe batch them or do a per
+    // thread count, and the snapshot system them reads from all threads.
     std::atomic<timestamp_t> time_;
     transaction_set current_transactions_;
 };
 
 } // namespace database
 } // namespace libbitcoin
-
 
 #endif
