@@ -215,6 +215,9 @@
     <ClInclude Include="..\..\..\..\include\bitcoin\database\store.hpp">
       <Filter>include\bitcoin\database</Filter>
     </ClInclude>
+    <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\spinlatch.hpp">
+      <Filter>include\bitcoin\database\transaction_management</Filter>
+    </ClInclude>
     <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\transaction_context.hpp">
       <Filter>include\bitcoin\database\transaction_management</Filter>
     </ClInclude>

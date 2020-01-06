@@ -22,8 +22,11 @@
     <Filter Include="src\result">
       <UniqueIdentifier>{5C4DA53A-8C06-4DA6-0000-000000000004}</UniqueIdentifier>
     </Filter>
-    <Filter Include="src\utility">
+    <Filter Include="src\transaction_management">
       <UniqueIdentifier>{5C4DA53A-8C06-4DA6-0000-000000000005}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="src\utility">
+      <UniqueIdentifier>{5C4DA53A-8C06-4DA6-0000-000000000006}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -101,6 +104,9 @@
     </ClCompile>
     <ClCompile Include="..\..\..\..\test\store.cpp">
       <Filter>src</Filter>
+    </ClCompile>
+    <ClCompile Include="..\..\..\..\test\transaction_management\transaction_manager.cpp">
+      <Filter>src\transaction_management</Filter>
     </ClCompile>
     <ClCompile Include="..\..\..\..\test\unspent_outputs.cpp">
       <Filter>src</Filter>

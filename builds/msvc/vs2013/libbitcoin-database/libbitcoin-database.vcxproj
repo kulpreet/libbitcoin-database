@@ -126,6 +126,7 @@
     <ClInclude Include="..\..\..\..\include\bitcoin\database\settings.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\snapshot\snapshot_manager.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\store.hpp" />
+    <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\spinlatch.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\transaction_context.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\transaction_management\transaction_manager.hpp" />
     <ClInclude Include="..\..\..\..\include\bitcoin\database\unspent_outputs.hpp" />

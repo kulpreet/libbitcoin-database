@@ -95,6 +95,7 @@ test_libbitcoin_database_test_SOURCES = \
     test/result/payment_result.cpp \
     test/result/transaction_iterator.cpp \
     test/result/transaction_result.cpp \
+    test/transaction_management/transaction_manager.cpp \
     test/utility/storage.cpp \
     test/utility/storage.hpp \
     test/utility/utility.cpp \
@@ -184,6 +185,7 @@ include_bitcoin_database_snapshot_HEADERS = \
 
 include_bitcoin_database_transaction_managementdir = ${includedir}/bitcoin/database/transaction_management
 include_bitcoin_database_transaction_management_HEADERS = \
+    include/bitcoin/database/transaction_management/spinlatch.hpp \
     include/bitcoin/database/transaction_management/transaction_context.hpp \
     include/bitcoin/database/transaction_management/transaction_manager.hpp
 

@@ -95,6 +95,7 @@
     <ClCompile Include="..\..\..\..\test\result\transaction_result.cpp" />
     <ClCompile Include="..\..\..\..\test\settings.cpp" />
     <ClCompile Include="..\..\..\..\test\store.cpp" />
+    <ClCompile Include="..\..\..\..\test\transaction_management\transaction_manager.cpp" />
     <ClCompile Include="..\..\..\..\test\unspent_outputs.cpp" />
     <ClCompile Include="..\..\..\..\test\unspent_transaction.cpp" />
     <ClCompile Include="..\..\..\..\test\utility\storage.cpp" />
